@@ -1,40 +1,32 @@
 // https://www.docz.site/docs/project-configuration
-const pkgName = 'docz-theme-extended';
-
+// Examples: https://github.com/doczjs/docz/tree/master/examples
 export default {
+  base: '/src',
+  ignore: ['README.md'],
   themeConfig: {
-    initialColorMode: 'dark',
+    // TODO: change this to "dark" once I have an appropriate icon
+    // initialColorMode: 'light',
     mainContainer: {
       fullscreen: false,
-      align: 'center',
+      align: 'center'
     },
     menu: {
       search: false,
       headings: {
         rightSide: true,
         scrollspy: true,
-        depth: 3,
-      },
-    },
+        depth: 3
+      }
+    }
   },
   menu: [
     {
       name: 'Introduction',
-      menu: [
-        'Introduction to Warthog',
-        'Installation and Setup'
-      ]
+      menu: ['Introduction to Warthog', 'Installation and Setup']
     },
     {
       name: 'Constructs',
-      menu: [
-        'Models',
-        'Resolvers',
-        'Services',
-        'Generated Folder',
-        'Server',
-        'Config'
-      ]
+      menu: ['Models', 'Resolvers', 'Services', 'Generated Folder', 'Server', 'Config']
     },
     {
       name: 'Techniques',
@@ -72,7 +64,7 @@ export default {
       ]
     },
     {
-      name: 'Warthog CLI',
+      name: 'CLI',
       menu: [
         'CLI Overview',
         'codegen',
@@ -83,13 +75,10 @@ export default {
         'db:migrate:create'
       ]
     },
-    'Plugins',
     {
-      name: 'Upgrading Guides',
-      menu: [
-        'Upgrading to 2.0'
-      ]
-    },
+      name: 'Upgrading',
+      menu: ['Upgrading to 2.0']
+    }
   ],
   title: 'Warthog',
   description: ''

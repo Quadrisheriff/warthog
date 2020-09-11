@@ -1,6 +1,6 @@
 ---
 name: Upgrading to 2.0
-menu: Upgrading Guides
+menu: Upgrading
 ---
 
 Warthog is now on version 2.0! There were a few breaking changes that you should consider while upgrading. Also, we tried to keep all new features development on v1, but did end up adding JSON filtering directly to 2.0 as it was much easier given some foundation refactors.
@@ -16,7 +16,7 @@ Since your GraphQL schema has changed and so have the associated TypeScript type
 
 ### `mockDBConnection` has been removed
 
-The old codegen pipeline used TypeORM's metadata in order to generate the GraphQL schema since Warthog didn't also capture this metadata. Warthog now captures the necessary metadata, so we no longer need to lean on TypeORM and therefore we don't need the `mockDBConnection` we previously used during codegen. Searching your codebase for `mockDBConnection` and `WARTHOG_MOCK_DATABASE`/`MOCK_DATABASE` should do it. If you've been using the Warthog CLI for codegen, you shouldn't have anything to do here.
+The old codegen pipeline used TypeORM's metadata in order to generate the GraphQL schema since Warthog didn't also capture this metadata. Warthog now captures the necessary metadata, so we no longer need to lean on TypeORM and therefore we don't need the `mockDBConnection` we previously used during codegen. Searching your codebase for `mockDBConnection` and `WARTHOG_MOCK_DATABASE`/`MOCK_DATABASE` should do it. If you've been using the CLI for codegen, you shouldn't have anything to do here.
 
 ### Project Dependencies Updated
 

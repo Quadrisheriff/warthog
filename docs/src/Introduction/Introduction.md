@@ -1,10 +1,10 @@
 ---
 name: Introduction to Warthog
 menu: Introduction
+route: /
 ---
 
 ![Warthog](https://raw.githubusercontent.com/goldcaddy77/warthog/main/img/warthog-logo.png)
-
 
 Warthog is a [Node.js](http://nodejs.org) GraphQL API framework for building consistent GraphQL APIs that have sorting, filtering and pagination out of the box. It is written in [TypeScript](http://www.typescriptlang.org) and makes heavy use of decorators for concise, declarative code.
 

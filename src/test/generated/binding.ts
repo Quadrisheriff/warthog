@@ -7,6 +7,7 @@ import * as schema from  './schema.graphql'
 
 export interface Query {
     dishes: <T = Array<Dish>>(args: { offset?: Int | null, limit?: Int | null, where?: DishWhereInput | null, orderBy?: DishOrderByInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    dishConnection: <T = DishConnection>(args: { offset?: Int | null, limit?: Int | null, where?: DishWhereInput | null, orderBy?: DishOrderByInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     dish: <T = Dish>(args: { where: DishWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     kitchenSinks: <T = Array<KitchenSink>>(args: { offset?: Int | null, limit?: Int | null, where?: KitchenSinkWhereInput | null, orderBy?: KitchenSinkOrderByInput | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     kitchenSink: <T = KitchenSink>(args: { where: KitchenSinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
@@ -101,6 +102,50 @@ export type KitchenSinkOrderByInput =   'createdAt_ASC' |
 
 export type StringEnum =   'FOO' |
   'BAR'
+
+export interface ApiOnlyCreateInput {
+  name: String
+}
+
+export interface ApiOnlyUpdateInput {
+  name?: String | null
+}
+
+export interface ApiOnlyWhereInput {
+  id_eq?: ID_Input | null
+  id_in?: ID_Output[] | ID_Output | null
+  createdAt_eq?: DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  createdById_eq?: ID_Input | null
+  createdById_in?: ID_Output[] | ID_Output | null
+  updatedAt_eq?: DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
+  updatedById_eq?: ID_Input | null
+  updatedById_in?: ID_Output[] | ID_Output | null
+  deletedAt_all?: Boolean | null
+  deletedAt_eq?: DateTime | null
+  deletedAt_lt?: DateTime | null
+  deletedAt_lte?: DateTime | null
+  deletedAt_gt?: DateTime | null
+  deletedAt_gte?: DateTime | null
+  deletedById_eq?: ID_Input | null
+  deletedById_in?: ID_Output[] | ID_Output | null
+  name_eq?: String | null
+  name_contains?: String | null
+  name_startsWith?: String | null
+  name_endsWith?: String | null
+  name_in?: String[] | String | null
+}
+
+export interface ApiOnlyWhereUniqueInput {
+  id: ID_Output
+}
 
 export interface BaseWhereInput {
   id_eq?: String | null
@@ -336,6 +381,18 @@ export interface DeleteResponse {
   id: ID_Output
 }
 
+export interface ApiOnly extends BaseGraphQLObject {
+  id: ID_Output
+  createdAt: DateTime
+  createdById: String
+  updatedAt?: DateTime | null
+  updatedById?: String | null
+  deletedAt?: DateTime | null
+  deletedById?: String | null
+  version: Int
+  name: String
+}
+
 export interface BaseModel extends BaseGraphQLObject {
   id: ID_Output
   createdAt: DateTime
@@ -372,6 +429,11 @@ export interface Dish extends BaseGraphQLObject {
   kitchenSinkId: String
 }
 
+export interface DishConnection {
+  nodes: Array<Dish>
+  pageInfo: PageInfo
+}
+
 export interface KitchenSink extends BaseGraphQLObject {
   id: ID_Output
   createdAt: DateTime
@@ -401,6 +463,14 @@ export interface KitchenSink extends BaseGraphQLObject {
   customTextFieldNoSortOrFilter?: String | null
   readonlyField?: String | null
   apiOnlyField?: String | null
+}
+
+export interface PageInfo {
+  limit: Float
+  offset: Float
+  totalCount: Float
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
 }
 
 export interface StandardDeleteResponse {

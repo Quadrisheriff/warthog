@@ -23,22 +23,18 @@
     "check:code": "tsc --noEmit && yarn lint && yarn prettify",
     "circle:build": "rm ./tmp/circle.build.yml 2> /dev/null && circleci config process .circleci/config.yml > ./tmp/circle.build.yml && circleci local execute -c ./tmp/circle.build.yml --job build",
     "deploy:debug": "npm_config_loglevel=verbose CIRCLE_BRANCH=beta CIRCLECI=true CI=true yarn semantic-release --debug",
-    "docz:build": "cd docz && yarn build",
+    "docs:build": "cd docs && yarn && yarn build",
+    "docs:dev": "cd docs && yarn && yarn dev",
     "lint": "eslint './+(examples|src|test|tools)/**/*.{js,ts}' --fix",
     "//prettier": "Note: ignores node_modules by default and 'generated' folder via .prettierignore",
     "prettify": "yarn prettier './+(examples|src|test|tools)/**/*.ts' --write",
     "semantic-release": "semantic-release",
-    "test": "yarn test:setup && NODE_ENV=test jest --verbose --runInBand && yarn test:teardown",
-    "test:codegen": "./src/test/codegen-test-files.sh",
-    "test:db:create": "NODE_ENV=test PGUSER=postgres ./bin/warthog db:create",
-    "test:db:drop": "NODE_ENV=test PGUSER=postgres ./bin/warthog db:drop",
-    "test:setup": "yarn test:db:drop && yarn test:db:create && yarn test:codegen",
-    "test:teardown": "yarn test:db:drop",
-    "test:update-snapshots": "yarn test:setup && NODE_ENV=test jest --verbose --runInBand -u && yarn test:teardown",
-    "test:watch": "yarn test:setup && NODE_ENV=test jest --verbose --runInBand --watch && yarn test:teardown"
+    "test": "./tools/test.sh",
+    "test:watch": "./tools/test.sh --watch"
   },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged && tsc && yarn test"
     }
   },
@@ -108,7 +104,6 @@
     "prettier": "^1.19.1",
     "reflect-metadata": "^0.1.13",
     "shortid": "^2.2.15",
-    "sqlite3": "^4.1.0",
     "type-graphql": "^0.17.5",
     "typedi": "^0.8.0",
     "typeorm": "^0.2.20",
@@ -116,6 +111,8 @@
     "typescript": "^3.7.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@types/faker": "^4.1.7",
     "@types/jest": "^24.0.23",
     "@types/supertest": "^2.0.8",
@@ -190,5 +187,10 @@
   "resolutions": {
     "//": "Fixes security vulnerability",
     "set-value": "2.0.1"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
   }
 }

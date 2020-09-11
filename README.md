@@ -7,8 +7,9 @@
 </p>
 
 <p align="center">
+  <a href="https://blacklivesmatter.com/"><img src="https://img.shields.io/badge/branch-main-fce21b?labelColor=black" alt="Black Lives Matter"/></a>
   <a href="https://www.npmjs.org/package/warthog"><img src="https://img.shields.io/npm/v/warthog.svg" alt="npm version"></a>
-  <a href="https://circleci.com/gh/goldcaddy77/warthog/tree/master"><img src="https://circleci.com/gh/goldcaddy77/warthog/tree/master.svg?style=shield" alt="CircleCI"></a>
+  <a href="https://circleci.com/gh/goldcaddy77/warthog/tree/main"><img src="https://circleci.com/gh/goldcaddy77/warthog/tree/main.svg?style=shield" alt="CircleCI"></a>
   <a href="https://codecov.io/gh/goldcaddy77/warthog"><img src="https://codecov.io/gh/goldcaddy77/warthog/branch/master/graph/badge.svg" alt="styled with prettier"></a>
   <a href="#badge"><img src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg" alt="styled with prettier"></a>
   <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
@@ -17,39 +18,11 @@
 
 ## Summary
 
-Warthog is a [Node.js](http://nodejs.org) GraphQL API framework for quickly building consistent GraphQL APIs that have sorting, filtering and pagination out of the box. It is written in [TypeScript](http://www.typescriptlang.org) and makes heavy use of decorators for concise, declarative code.
-
-## Note: Upgrading from 1.0 to 2.0
-
-Warthog is now on version 2.0! There were a few breaking changes that you should consider while upgrading. Also, we tried to keep all new features development on v1, but did end up adding JSON filtering directly to 2.0 as it was much easier given some foundation refactors.
-
-<details>
-<summary>Expand for Breaking change details</summary>
-<p>
-
-### More specific scalars
-
-A few fields have been updated to use more specific GraphQL scalars:
-
-- ID fields: previously these were represented by type `String`. Dates now use type `ID`
-- Date fields: previously these were represented by type `String`. Dates now use type `DateTime`
-
-Since your GraphQL schema has changed and so have the associated TypeScript types in `classes.ts`, there might be changes in your server code and even perhaps some associated client code if you use these generated classes in your client code.
-
-### `mockDBConnection` has been removed
-
-The old codegen pipeline used TypeORM's metadata in order to generate the GraphQL schema since Warthog didn't also capture this metadata. Warthog now captures the necessary metadata, so we no longer need to lean on TypeORM and therefore we don't need the `mockDBConnection` we previously used during codegen. Searching your codebase for `mockDBConnection` and `WARTHOG_MOCK_DATABASE`/`MOCK_DATABASE` should do it. If you've been using the Warthog CLI for codegen, you shouldn't have anything to do here.
-
-### Project Dependencies Updated
-
-Staying on the latest versions of libraries is good for security, performance and new features. We've bumped to the latest stable versions of each of Warthog's dependencies. This might require some changes to your package.json.
-
-</p>
-</details>
+Warthog is a [Node.js](http://nodejs.org) GraphQL API framework for quickly building consistent GraphQL APIs that have sorting, filtering and pagination out of the box. It is written in [TypeScript](http://www.typescriptlang.org) and makes use of decorators for concise, declarative code. With Warthog, you write your models and resolvers and we handle the rest.
 
 ## Philosophy
 
-This library is intentionally opinionated and generates as much code as possible. When teams build products quickly, even if they have strong conventions and good linters, the GraphQL can quickly become inconsistent, making it difficult for clients to consume the APIs in a reusable way.
+This library brings a lot of opinions and generates as much code as possible. When teams build products quickly, even if they have strong conventions and good linters, the GraphQL can quickly become inconsistent, making it difficult for clients to consume the APIs in a reusable way.
 
 To do this, Warthog automatically generates the following:
 
@@ -68,7 +41,7 @@ Further, it covers the following concerns by hooking into best-in-class open sou
 
 ## Prerequisites
 
-Warthog currently only supports PostgreSQL as a DB engine, so you must have Postgres installed before getting Warthog set up. (Note: Postgres 12 is not currently supported)
+Warthog currently only supports PostgreSQL as a DB engine, so you must have Postgres (version 10, 11 or 12) installed before getting Warthog set up.
 
 <details>
 <summary>Expand for Postgres installation options</summary>
@@ -210,6 +183,30 @@ Note that the examples in the [examples](./examples/README.md) folder use relati
 </p>
 </details>
 
+## Documentation
+
+Our documentation is hosted at [warthog.dev](https://warthog.dev) or you can browse the [docs](./docs/src) directory.
+
+## Contributing
+
+PRs accepted, fire away! Or add issues if you have use cases Warthog doesn't cover.
+
+Before contributing, make sure you have Postgres installed and running with a user named `postgres` with an empty password. If you don't have this local Postgres user, you'll need to update the `.env` files in the `examples` folders to point to a user that can run DB migrations.
+
+Once you have this user set up, you can build a specific example by navigating to that folder and running `yarn bootstrap`.
+
+If you want to build all examples, you can run `yarn bootstrap` from the Warthog root folder.
+
+It's helpful to add a new feature to the Warthog and make use of it in one of the examples folders until you've determined how it's going to work. Once you have it working, you can add tests.
+
+## Intentionally Opinionated
+
+Warthog is intentionally opinionated to accelerate development and make use of technology-specific features:
+
+- Postgres - currently the only database supported. This could be changed, but choosing Postgres allows adding a docker container and other goodies easily.
+- Jest - other harnesses will work, but if you use Jest, we will not open the GraphQL playground when the server starts, for example.
+- Soft deletes - no records are ever deleted, only "soft deleted". The base service used in resolvers filters out the deleted records by default.
+
 ## Thanks
 
 Special thanks to:
@@ -224,3 +221,6 @@ Warthog is essentially a really opinionated composition of TypeORM and TypeGraph
 ## License
 
 MIT © Dan Caddigan
+
+[1]: https://nodejs.org/api/http.html#http_server_headerstimeout
+[2]: https://nodejs.org/api/http.html#http_server_keepalivetimeout

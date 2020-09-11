@@ -1,9 +1,7 @@
 ---
-name: Installation and Setup
-menu: Introduction
+name: Getting Started
+menu: Constructs
 ---
-
-import { Hint } from '@nejcm/docz-theme-extended';
 
 ## Installation
 
@@ -11,7 +9,7 @@ Add installation steps
 
 ## Prerequisites
 
-Warthog currently only supports PostgreSQL as a DB engine, so you must have Postgres installed before getting Warthog set up. (Note: Postgres 12 is not currently supported)
+Warthog currently only supports PostgreSQL as a DB engine (version 10, 11 or 12), so you must have Postgres installed before getting Warthog set up.
 
 <details>
 <summary>Expand for Postgres installation options</summary>

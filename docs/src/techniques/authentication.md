@@ -3,5 +3,4 @@ name: Authentication
 menu: Techniques
 ---
 
-
-#  COMING SOON
+# COMING SOON
